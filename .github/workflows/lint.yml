@@ -19,7 +19,15 @@ jobs:
           sudo apt-get install -y shellcheck
 
       - name: Run ShellCheck
-        run: shellcheck $(git ls-files '*.sh' '*.zsh')
+        run: |
+          # Lint only POSIX‑compatible shell scripts; ShellCheck
+          # doesn’t understand pure zsh files.
+          sh_files=$(git ls-files '*.sh')
+          if [ -n "$sh_files" ]; then
+            shellcheck $sh_files
+          else
+            echo "No .sh files to lint"
+          fi
 
       - name: Set up Bats
         uses: mig4/setup-bats@v1
