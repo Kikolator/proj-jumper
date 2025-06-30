@@ -5,6 +5,15 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/) convent
 
 ## [Unreleased]
 
+### Added
+
+- New Bats-core tests for CI coverage:
+
+  - `proj_root_missing.bats`
+  - `proj_unknown_project.bats`
+  - `completion.bats`
+  - `proj_config_sets_root.bats`
+
 ## [0.1.3] - 2025‑06‑30
 
 ### Added
