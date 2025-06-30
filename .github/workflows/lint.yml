@@ -1,12 +1,28 @@
 name: lint
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: ShellCheck
-        uses: ludeeus/action-shellcheck@v2
-      - name: Bats
-        uses: mig4/setup-bats@v1
-      - run: bats test
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # allow git-describe etc. to work later
+
+      - name: Install ShellCheck
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y shellcheck
+
+      - name: Run ShellCheck
+        run: shellcheck $(git ls-files '*.sh' '*.zsh')
+
+      - name: Set up Bats
+        uses: mig4/setup-bats@v3
+
+      - name: Run Bats tests
+        run: bats test

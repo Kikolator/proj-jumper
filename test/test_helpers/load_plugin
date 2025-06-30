@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Args: none — sources plugin with an isolated HOME
+export HOME=$(mktemp -d)
+source "$BATS_TEST_DIRNAME/../proj-jumper.plugin.zsh"

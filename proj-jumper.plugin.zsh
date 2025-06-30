@@ -1,14 +1,42 @@
 #!/usr/bin/env zsh
-# proj-jumper — jump to a project inside $DEV_ROOT
+# proj-jumper — jump quickly into a project directory under $DEV_ROOT
+# v0.1.3-dev
 
-# --- configuration ----------------------------------------------------------
-: ${DEV_ROOT:=${PROJ_DEV_ROOT:-"/Volumes/dog_house/development/projects"}}
-
+# -------- configuration ------
+: ${DEV_ROOT:=${PROJ_DEV_ROOT:-"~/development"}}
 # allow users to export PROJ_DEV_ROOT or DEV_ROOT to override
 export DEV_ROOT
 
-# --- function ---------------------------------------------------------------
+# ───────── help text ─────────
+_proj_usage() {
+  cat <<EOF
+proj-jumper — jump to project directories
+
+Usage:
+  proj <name>          cd into the project called <name>
+  proj                 interactive picker (fzf if available, else list)
+  proj -h | --help     show this help
+
+Options:
+  -h, --help           display this help and exit
+
+Environment variables:
+  PROJ_DEV_ROOT        override the default root path ($DEV_ROOT)
+  DEV_ROOT             same as above (kept for compatibility)
+
+Examples:
+  proj savage          → cd \$DEV_ROOT/savage
+  proj                 → fuzzy-select a project
+  proj-config ~/code   → write export PROJ_DEV_ROOT=~/code to ~/.zshrc
+EOF
+}
+
+
+# ───────── main command ─────────
 proj () {
+  # 0. help first
+  [[ "$1" == "-h" || "$1" == "--help" ]] && { _proj_usage; return 0 }
+
   # 1. verify disk
   [[ -d $DEV_ROOT ]] || { print -u2 "⚠️ $DEV_ROOT not found"; return 1 }
 
@@ -31,7 +59,7 @@ proj () {
   fi
 }
 
-# ---------------------------------- config helper
+# ───────── config helper ─────────
 proj-config () {
   local new_root=${1:-}
   [[ -z $new_root ]] && {
@@ -52,7 +80,7 @@ proj-config () {
 }
 compdef _files proj-config   # tab-complete directories
 
-# --- completion hook --------------------------------------------------------
+# ─────── completion helpers ───────
 # Late-bound because the volume could mount after shell start
 _proj_complete () {
   [[ -d $DEV_ROOT ]] || return
