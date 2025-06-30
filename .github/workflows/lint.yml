@@ -29,6 +29,9 @@ jobs:
             echo "No .sh files to lint"
           fi
 
+      - name: Install zsh
+        run: sudo apt-get update -qq && sudo apt-get install -y zsh
+
       - name: Set up Bats
         uses: mig4/setup-bats@v1
 
