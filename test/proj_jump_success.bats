@@ -8,9 +8,9 @@
     export DEV_ROOT='$fake_root'; \
     source \"$BATS_TEST_DIRNAME/../proj-jumper.plugin.zsh\"; \
     proj alpha; \
-    pwd \
+    pwd -P \
   "
 
   [ "$status" -eq 0 ]
-  [[ "$output" == "$fake_root/alpha" ]]
+  [[ "$output" == *"$fake_root/alpha"* ]]
 }

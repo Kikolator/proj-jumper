@@ -7,8 +7,9 @@
   run zsh -c " \
     export DEV_ROOT='$fake_root'; \
     source \"$BATS_TEST_DIRNAME/../proj-jumper.plugin.zsh\"; \
+    autoload -Uz compinit && compinit; \
     reply=(); \
-    _proj_complete \"\"; \
+    _proj_complete ''; \
     print -l \"\${reply[@]}\" \
   "
 
