@@ -31,6 +31,27 @@ proj () {
   fi
 }
 
+# ---------------------------------- config helper
+proj-config () {
+  local new_root=${1:-}
+  [[ -z $new_root ]] && {
+    print -u2 "Usage: proj-config /path/to/root"
+    return 1
+  }
+  if [[ ! -d $new_root ]]; then
+    print -u2 "Directory does not exist: $new_root"
+    return 1
+  fi
+
+  local rcfile=${ZDOTDIR:-$HOME}/.zshrc
+  # strip any existing line that sets the var, then append the new one
+  sed -i '' '/^export PROJ_DEV_ROOT=/d' "$rcfile"
+  echo "export PROJ_DEV_ROOT=$new_root" >>"$rcfile"
+  print "PROJ_DEV_ROOT set to $new_root (added to $rcfile)."
+  print "Restart your shell or run: source $rcfile"
+}
+compdef _files proj-config   # tab-complete directories
+
 # --- completion hook --------------------------------------------------------
 # Late-bound because the volume could mount after shell start
 _proj_complete () {
