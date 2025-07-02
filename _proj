@@ -1,4 +1,4 @@
 #compdef proj
 
 _arguments \
-  '1:project name:_files -W "$DEV_ROOT" -/"*"' && return 0
+  '1:project name:_files -W "$PROJ_DEV_ROOT" -/"*"' && return 0

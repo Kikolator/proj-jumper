@@ -5,7 +5,7 @@
 ```text
 proj listy        # → /Volumes/dog_house/development/projects/listy
 proj              # fuzzy‑pick a project (needs fzf)
-proj-config ~/code # one‑time helper to set a different root
+proj config ~/code # one‑time helper to set a different root
 ```
 
 --------------------------------------------------------------------------------
@@ -16,7 +16,7 @@ proj-config ~/code # one‑time helper to set a different root
 - **One‑word `proj <name>`** – faster than typing long paths.
 - **Interactive picker** – choose from a fuzzy list when you just run `proj` (uses **fzf** if available).
 - **Tab completion** – `proj sa<Tab>` → `proj savage`.
-- **Config helper** – `proj-config /path` adds `export PROJ_DEV_ROOT=/path` to your `.zshrc`.
+- **Config helper** – `proj config /path` adds `export PROJ_DEV_ROOT=/path` to your `.zshrc`.
 
 --------------------------------------------------------------------------------
 
@@ -52,14 +52,13 @@ Jump to a project      | `proj savage`        | `cd` into _savage_
 Pick interactively     | `proj`               | fuzzy list via **fzf**
 List projects (no fzf) | `proj`               | prints directory names
 Tab‑complete           | `proj li<Tab>`       | expands to _listy_
-Set a new root         | `proj-config ~/code` | writes `export PROJ_DEV_ROOT=~/code` to `.zshrc`
+Set a new root         | `proj config ~/code` | writes `export PROJ_DEV_ROOT=~/code` to `.zshrc`
 
 ### Environment variables
 
 Variable        | Purpose
---------------- | ----------------------------------------------------------------------
-`PROJ_DEV_ROOT` | Override the default root (`/Volumes/dog_house/development/projects`).
-`DEV_ROOT`      | Alias kept for compatibility.
+--------------- | ------------------------------------------------
+`PROJ_DEV_ROOT` | Override the default root (`$HOME/development`).
 
 --------------------------------------------------------------------------------
 

@@ -14,6 +14,19 @@ This project follows the [Keep a Changelog](https://keepachangelog.com/) convent
   - `completion.bats`
   - `proj_config_sets_root.bats`
 
+## [0.1.4] - 2025-06-30
+
+### Added
+
+- Sub‑command `proj config <dir>` for setting **PROJ_DEV_ROOT** and persisting it to _~/.zshrc_.
+- Tab‑completion support for the new sub‑command.
+
+### Changed
+
+- Replaced the standalone helper `proj-config` with the new sub‑command.
+- Removed legacy **DEV_ROOT** variable; the plugin now relies solely on **PROJ_DEV_ROOT**.
+- Updated help text, completion logic, and internal code to reflect the single‑variable configuration.
+
 ## [0.1.3] - 2025‑06‑30
 
 ### Added
